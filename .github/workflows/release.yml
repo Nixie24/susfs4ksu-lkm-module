@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 建 tag 和 release 要写权限。
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: build
+        id: build
+        run: |
+          ./build.sh
+          version=$(sed -n 's/^version=//p' module.prop | head -n1)
+          code=$(sed -n 's/^versionCode=//p' module.prop | head -n1)
+          echo "tag=v${version#v}(${code})" >>"$GITHUB_OUTPUT"
+
+      - name: publish
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.build.outputs.tag }}
+          name: ${{ steps.build.outputs.tag }}
+          files: dist/*.zip
