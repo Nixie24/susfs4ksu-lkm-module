@@ -53,3 +53,10 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Module packaging output and runtime state
+dist/
+build/
+log/
+mods/*
+!mods/.gitkeep
