@@ -1,6 +1,6 @@
 # susfs4ksu-lkm-module
 
-一个 KernelSU 模块，把 [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) 当成**可加载内核模块（LKM）**来加载，不用为了它重编内核。
+[inforcqb/susfs4ksu-lkm](https://github.com/inforcqb/susfs4ksu-lkm) 的自动安装器
 
 - 刷入时识别设备的信息（`<Android 版本>-<内核版本>`），下载对应的 `susfs_guard_lkm-<变体>.ko`
 - 开机时自动用 `ksud insmod` 加载
@@ -15,7 +15,7 @@
 ## 打包
 
 ```sh
-./build.sh          # -> dist/susfs4ksu_lkm_v0.1.0.zip
+./build.sh
 ```
 
 ## 许可
