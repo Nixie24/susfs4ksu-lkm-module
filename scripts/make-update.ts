@@ -33,9 +33,21 @@ const release = JSON.parse(
     execFileSync("gh", ["release", "view", tag, "--json", "assets,body"], {
         encoding: "utf8",
     }),
-) as { assets?: { browser_download_url?: string }[]; body?: string };
+) as {
+    assets?: { name?: string; url?: string }[];
+    body?: string;
+};
 
-const zipUrl = release.assets?.[0]?.browser_download_url;
+const zipAsset = (release.assets ?? []).find(
+    a => typeof a.name === "string" && a.name.toLowerCase().endsWith(".zip") && typeof a.url === "string" && a.url !== "",
+);
+
+if (zipAsset?.url == null) {
+    const names = (release.assets ?? []).map(a => a.name).join(", ") || "(无)";
+    fail(`release ${tag} 里找不到 zip 资源；现有资源：${names}`);
+}
+
+const zipUrl = zipAsset.url;
 if (zipUrl === undefined || zipUrl === "") {
     fail(`release ${tag} 里找不到 zip 资源`);
 }
