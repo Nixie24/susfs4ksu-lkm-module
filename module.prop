@@ -1,6 +1,0 @@
-id=susfs4ksu_lkm
-name=SUSFS LKM Loader
-version=v0.1.0
-versionCode=100
-author=Nix24
-description=Loads SUSFS as a loadable kernel module (susfs_guard_lkm) via ksud.

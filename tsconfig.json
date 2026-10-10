@@ -1,0 +1,7 @@
+{
+    "references": [
+        { "path": "./tsconfig.config.json" },
+        { "path": "./src/webui/tsconfig.json" }
+    ],
+    "files": []
+}

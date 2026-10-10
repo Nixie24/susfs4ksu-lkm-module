@@ -1,0 +1,7 @@
+id=susfs4ksu_lkm
+name=SUSFS LKM Loader
+version={version}
+versionCode={versionCode}
+author=Nix24
+updateJson=https://raw.githubusercontent.com/Nixie24/susfs4ksu-lkm-module/update/update.json
+description={status} 内核版本：{kernel} SuSFS版本：{susfs} Loads SUSFS as a loadable kernel module (susfs_guard_lkm) via ksud.
