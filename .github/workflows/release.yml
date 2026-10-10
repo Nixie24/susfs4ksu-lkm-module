@@ -14,17 +14,52 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: build
-        id: build
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      # 版本号在 package.json 里，读出来拼 tag（versionCode 由 scripts/version.ts 统一算）
+      # tag 里不能有空格，否则不是合法的 git ref
+      - name: version
+        id: version
         run: |
-          ./build.sh
-          version=$(sed -n 's/^version=//p' module.prop | head -n1)
-          code=$(sed -n 's/^versionCode=//p' module.prop | head -n1)
-          echo "tag=v${version#v}(${code})" >>"$GITHUB_OUTPUT"
+          read -r version code < <(node scripts/version.ts)
+          echo "version=$version" >>"$GITHUB_OUTPUT"
+          echo "versionCode=$code" >>"$GITHUB_OUTPUT"
+          echo "tag=v${version}-${code}" >>"$GITHUB_OUTPUT"
+
+      - name: build
+        run: pnpm build
 
       - name: publish
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ steps.build.outputs.tag }}
-          name: ${{ steps.build.outputs.tag }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
+          generate_release_notes: true
           files: dist/*.zip
+
+      # 生成 update.json + changelog.md
+      - name: make update files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+          VERSION_CODE: ${{ steps.version.outputs.versionCode }}
+          OUT_DIR: ${{ runner.temp }}/update-out
+        run: node scripts/make-update.ts
+
+      # 把生成好的目录推到 update 分支，供 KernelSU 检查模块更新
+      - name: publish update branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: update
+          build_dir: ${{ runner.temp }}/update-out
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

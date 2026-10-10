@@ -1,0 +1,33 @@
+{
+    "name": "susfs4ksu-lkm-module",
+    "type": "module",
+    "version": "0.2.0",
+    "packageManager": "pnpm@12.10.1",
+    "license": "GPL-2.0-only",
+    "scripts": {
+        "dev": "pnpm --filter webui run dev",
+        "build": "pnpm --filter webui run build && pnpm --filter module run build",
+        "module:build": "pnpm --filter module run build",
+        "webui:build": "pnpm --filter webui run build",
+        "lint": "eslint",
+        "sync": "syncpack"
+    },
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "12.10.1",
+            "onFail": "download"
+        }
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "9.5.1",
+        "@types/node": "26.4.0",
+        "eslint": "10.12.0",
+        "eslint-plugin-format": "2.0.1",
+        "jiti": "2.7.0",
+        "prettier-plugin-css-order": "2.2.0",
+        "prettier-plugin-sh": "0.20.2",
+        "syncpack": "15.3.3",
+        "typescript": "6.0.3"
+    }
+}

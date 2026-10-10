@@ -1,62 +1,28 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# debug information files
-*.dwo
-
 # Module packaging output and runtime state
 dist/
 build/
 log/
-mods/*
-!mods/.gitkeep
+update-out/
+
+# module.prop 由 module.prop.template 生成，不是源文件
+src/module/module.prop
+# 刷入后才有的东西
+src/module/mods/*
+
+# Node dependencies
+node_modules/
+.pnpm-store/
+
+# Misc
+.DS_Store
+Thumbs.db
+.fleet
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# TypeScript / ESLint
+.eslintcache
+*.tsbuildinfo

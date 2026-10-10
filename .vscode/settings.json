@@ -1,0 +1,77 @@
+{
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
+    "eslint.format.enable": true,
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "never"
+    },
+    "eslint.options": {
+        "overrideConfigFile": "eslint.config.ts"
+    },
+    "eslint.nodePath": "node_modules",
+    "eslint.rules.customizations": [
+        {
+            "rule": "style/*",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "format/*",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-indent",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-spacing",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-spaces",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-order",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-dangle",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*-newline",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*quotes",
+            "severity": "warn",
+            "fixable": true
+        },
+        {
+            "rule": "*semi",
+            "severity": "warn",
+            "fixable": true
+        }
+    ],
+    "eslint.validate": [
+        "typescript",
+        "html",
+        "markdown",
+        "json",
+        "json5",
+        "jsonc",
+        "yaml",
+        "toml",
+        "xml",
+        "shellscript"
+    ]
+}
